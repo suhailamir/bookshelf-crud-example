@@ -1,4 +1,4 @@
-## Development Environment Instructions
+## Development Environment Instructions (Docker)
 
 - ensure the latest version of Docker is installed
 - Navigate to the project directory
@@ -7,3 +7,12 @@
 - Run "docker-compose -p users ps" to list the containers
 - Run "docker exec -it users_api_1 sh" to run commands in a container's shell
 - Run "docker-compose -p users stop" to stop the containers
+
+## Development Environment Instructions (without Docker)
+
+- clone the repo
+- set mysql username and password
+- Navigate to the /app directory
+- Run npm install
+- Run npm start
+- navigate to localhost:3000/users , it will return list of users created
