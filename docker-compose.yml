@@ -1,0 +1,61 @@
+version: "2"
+
+networks:
+  back-tier:
+    driver: bridge
+  front-tier:
+    driver: bridge
+
+services:
+
+  redis:
+    hostname: redis
+    image: redis:3-alpine
+    expose:
+      - 6379
+    networks:
+      - back-tier
+
+  database:
+    hostname: database
+    environment:
+      MYSQL_ROOT_PASSWORD: "root"
+      MYSQL_USER: "user"
+      MYSQL_PASSWORD: "password"
+      MYSQL_DATABASE: "database"
+    networks:
+      - back-tier
+    expose:
+      - 3306
+    image: percona
+    logging:
+      driver: "json-file"
+    mem_limit: 512m
+
+  api:
+    build: ./
+    command: npm run start
+    environment:
+      PORT: 3000
+      MYSQL_HOST: "database"
+      MYSQL_USER: "user"
+      MYSQL_PASSWORD: "password"
+      MYSQL_DATABASE: "database"
+      REDIS_HOST: "redis"
+    mem_limit: 512m
+    volumes:
+      - ./app:/app
+    expose:
+      - 3000
+    ports:
+      - "3331:3000"
+    networks:
+      - front-tier
+      - back-tier
+    logging:
+      options:
+        max-size: "1m"
+        max-file: "2"
+    links:
+      - redis
+      - database

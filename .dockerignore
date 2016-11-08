@@ -1,0 +1,6 @@
+.git
+.gitignore
+bootstrap.sh
+deploy.sh
+Dockerfile
+npm-debug.log
