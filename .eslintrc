@@ -16,6 +16,6 @@
             "no-shadow": 0,
             "arrow-body-style": 0,
             "key-spacing": 0,
-            "max-nested-callback: [2, 3]
+            "max-nested-callback": [2, 3]
         }
 }
